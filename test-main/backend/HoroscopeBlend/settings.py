@@ -124,5 +124,5 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
-NVIDIA_API_KEY = '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'
+NVIDIA_API_KEY = os.getenv('NVIDIA_KEY', '')
 
