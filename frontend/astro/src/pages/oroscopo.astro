@@ -4,15 +4,12 @@ import Layout from "../layouts/or.astro";
 
 <Layout>
 
-  <!-- bottone esci -->
   <a href="/">
-    <button type="submit" id="esci">
-      <img src="/img/esci.png" alt="Esci" />
+    <button type="button" id="esci"> <img src="/img/esci.png" alt="Esci" />
     </button>
-</a>
+  </a>
 
-  <!-- impostazioni -->
-  <button id="impostazioni">
+  <button type="button" id="impostazioni">
     <img src="/img/impostazioni.png" alt="Impostazioni" />
   </button>
 
@@ -21,10 +18,9 @@ import Layout from "../layouts/or.astro";
 
     <br />
 
-    <!-- FORM oroscopo -->
-    <form action="/recupera-oroscopo" method="POST">
+    <form id="oroscopo-form">
       <div class="custom-select">
-        <select name="segno">
+        <select name="segno" id="select-segno">
           <option value="ariete">Ariete</option>
           <option value="toro">Toro</option>
           <option value="gemelli">Gemelli</option>
@@ -44,7 +40,6 @@ import Layout from "../layouts/or.astro";
         <img src="/img/serch.png" alt="Cerca" />
       </button>
 
-      <!-- provider -->
       <div id="pannello-impostazioni" class="modal-impostazioni">
         <div class="modal-content">
           <button type="button" class="chiudi-impostazioni">&times;</button>
@@ -56,7 +51,7 @@ import Layout from "../layouts/or.astro";
 
           <center>
             <div class="custom-select">
-              <select name="provider">
+              <select name="provider" id="select-provider">
                 <option value="internazionale">internazionale</option>
                 <option value="corriere">corriere</option>
                 <option value="sky">sky</option>
@@ -69,7 +64,6 @@ import Layout from "../layouts/or.astro";
       </div>
     </form>
 
-    <!-- BOX risultato (statico per ora) -->
     <div id="box-oroscopo" class="box-risultato-oroscopo" style="display:none;">
       <button
         type="button"
@@ -79,8 +73,64 @@ import Layout from "../layouts/or.astro";
         &times;
       </button>
 
-      <h2>Oroscopo del giorno</h2>
-      <p>Risultato qui (da backend o API)</p>
+      <h2 id="titolo-oroscopo">Oroscopo del giorno</h2>
+      <p id="testo-oroscopo">Risultato qui (da backend o API)</p>
     </div>
   </center>
+
+  <script>
+    const form = document.getElementById('oroscopo-form') as HTMLFormElement;
+    const boxOroscopo = document.getElementById('box-oroscopo');
+    const titoloOroscopo = document.getElementById('titolo-oroscopo');
+    const testoOroscopo = document.getElementById('testo-oroscopo');
+
+    // Logica per l'apertura/chiusura della modale impostazioni (se non l'avevi già scritta altrove)
+    const btnImpostazioni = document.getElementById('impostazioni');
+    const panelImpostazioni = document.getElementById('pannello-impostazioni');
+    const btnChiudiImpostazioni = document.querySelector('.chiudi-impostazioni');
+
+    btnImpostazioni?.addEventListener('click', () => {
+      if (panelImpostazioni) panelImpostazioni.style.display = 'block';
+    });
+    btnChiudiImpostazioni?.addEventListener('click', () => {
+      if (panelImpostazioni) panelImpostazioni.style.display = 'none';
+    });
+
+    // Gestione dell'invio del Form a Django
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault(); // Blocca il ricaricamento della pagina
+
+      const segno = (document.getElementById('select-segno') as HTMLSelectElement).value;
+      const provider = (document.getElementById('select-provider') as HTMLSelectElement).value;
+
+      // Mostriamo subito il box con un testo di caricamento
+      if (titoloOroscopo) titoloOroscopo.innerText = `Oroscopo: ${segno.toUpperCase()}`;
+      if (testoOroscopo) testoOroscopo.innerText = "Recupero dei dati in corso... Attendi...";
+      if (boxOroscopo) boxOroscopo.style.display = 'block';
+
+      try {
+        // Sostituisci l'URL con l'indirizzo reale del tuo server Django se diverso
+        const response = await fetch('http://127.0.0.1:8000/recupera_oroscopo/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ segno: segno, provider: provider })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Aggiorna il box con i dati reali tornati da Django
+          if (titoloOroscopo) titoloOroscopo.innerText = `Oroscopo del ${data.segno}`;
+          if (testoOroscopo) testoOroscopo.innerText = data.oroscopo;
+        } else {
+          if (testoOroscopo) testoOroscopo.innerText = `Errore backend: ${data.errore}`;
+        }
+      } catch (error) {
+        console.error("Errore di connessione:", error);
+        if (testoOroscopo) testoOroscopo.innerText = "Impossibile connettersi al server Django. Controlla che sia avviato e che i CORS siano configurati.";
+      }
+    });
+  </script>
 </Layout>

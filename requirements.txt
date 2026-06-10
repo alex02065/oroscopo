@@ -1,5 +1,6 @@
 Django
 djangorestframework
+django-cors-headers>=4.0.0
 beautifulsoup4
 requests
 openai

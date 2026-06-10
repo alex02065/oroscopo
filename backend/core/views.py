@@ -4,8 +4,11 @@ import requests
 from django.conf import settings
 from openai import OpenAI
 
+from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import Group, User
 from rest_framework import permissions, viewsets
+from django.http import JsonResponse
+import json
 
 from .serializers import GroupSerializer, UserSerializer
 
@@ -186,10 +189,13 @@ def recupera_oroscopo_ai(segno_scelto):
                 oroscopo_testo = f"Errore di elaborazione AI: {str(e)}"
     return oroscopo_testo
 
+
+@csrf_exempt
 def recupera_oroscopo(request):
     if request.method == "POST":
-        segno_scelto = request.POST.get('segno', '').lower()
-        provider_scelto = request.POST.get('provider', '').lower()
+        data = json.loads(request.body)
+        provider_scelto = data.get('provider', '').lower()
+        segno_scelto = data.get('segno', '').lower()
         oroscopo_testo=None
         if provider_scelto == "internazionale":
             oroscopo_testo = recupera_oroscopo_internazionale(segno_scelto)
@@ -202,9 +208,6 @@ def recupera_oroscopo(request):
         elif provider_scelto == "ai":
             oroscopo_testo = recupera_oroscopo_ai(segno_scelto)
         
-        request.session['oroscopo_testo'] = oroscopo_testo
-        request.session['segno_scelto'] = segno_scelto.capitalize()
-        
-        return redirect('oroscopo')
+        return JsonResponse({'oroscopo': oroscopo_testo, 'segno': segno_scelto, 'provider': provider_scelto})
         
     return redirect('oroscopo')

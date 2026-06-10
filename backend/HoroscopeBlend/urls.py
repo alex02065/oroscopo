@@ -40,5 +40,6 @@ urlpatterns = [
     path('', views.home, name='home'),
     path('avvia/', views.avvia_oroscopo, name='avvia_oroscopo'),
     path('oroscopo/', views.pagina_oroscopo, name='oroscopo'),
+    path('recupera_oroscopo/', views.recupera_oroscopo, name='recupera_oroscopo'),
     path('recupera/', views.recupera_oroscopo, name='recupera_oroscopo'),
 ]
