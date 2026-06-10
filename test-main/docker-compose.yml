@@ -18,6 +18,19 @@ services:
     env_file:
       - .env
 
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/frontend.dockerfile
+    ports:
+      - "4321:4321"
+    volumes:
+      - ./:/app/
+    networks:
+      - app-net
+    depends_on:
+      - django
+
   db:
     image: postgres:18.1
     restart: unless-stopped
