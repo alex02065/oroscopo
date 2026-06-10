@@ -1,0 +1,82 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/oroscopo.css' %}">
+    <link rel="stylesheet" href="{% static 'css/select.css' %}">
+    <link rel="stylesheet" href="{% static 'css/impostazioni.css' %}">
+    <script src="{% static 'js/impostazioni.js' %}"></script>
+    <script src="{% static 'js/select.js' %}"></script>
+</head>
+<body>
+    <form action="{% url 'home' %}" method="GET" class="form-esci">
+    <button type="submit" id="esci"><img src="{% static 'img/esci.png' %}" alt="Esci"></button>
+    </form>
+    <button id="impostazioni"><img src="{% static 'img/impostazioni.png' %}"></button>
+    <center>
+
+        <h1 id="segno">Seleziona il tuo segno zodiacale</h1>
+        <br>
+
+        <form action="{% url 'recupera_oroscopo' %}" method="POST">
+            {% csrf_token %}
+
+            <div class="custom-select">
+                <select name="segno">
+                    <option value="ariete">Ariete</option>
+                    <option value="toro">Toro</option>
+                    <option value="gemelli">Gemelli</option>
+                    <option value="cancro">Cancro</option>
+                    <option value="leone">Leone</option>
+                    <option value="vergine">Vergine</option>
+                    <option value="bilancia">Bilancia</option>
+                    <option value="scorpione">Scorpione</option>
+                    <option value="sagittario">Sagittario</option>
+                    <option value="capricorno">Capricorno</option>
+                    <option value="acquario">Acquario</option>
+                    <option value="pesci">Pesci</option>
+                </select>
+            </div>
+
+            <button type="submit" id="serch"><img src="{% static 'img/serch.png' %}"></button>
+
+
+    <div id="pannello-impostazioni" class="modal-impostazioni">
+        <div class="modal-content">
+            <button type="button" class="chiudi-impostazioni">&times;</button> 
+            <h2>Impostazioni Oroscopo</h2>
+            <hr class="divider">
+            
+            <label>Scegli il sito da cuoi prendere l'oroscopo</label>
+            <center>
+                <div class="custom-select">
+                    <select name="provider">
+                            <option value="internazionale" {% if provider == "internazionale" or not provider %}selected{% endif %}>internazionale</option>
+                            <option value="corriere" {% if provider == "corriere" %}selected{% endif %}>corriere</option>
+                            <option value="sky" {% if provider == "sky" %}selected{% endif %}>sky</option>
+                            <option value="oggi" {% if provider == "oggi" %}selected{% endif %}>oggi</option>
+                            <option value="AI" {% if provider == "AI" %}selected{% endif %}>AI</option>
+
+                    </select>
+                </div>
+            </center>
+        </div>
+    </div>
+
+    </form>
+
+    {% if mostra_box %}
+    <center>
+        <div id="box-oroscopo" class="box-risultato-oroscopo">
+            
+            <button type="button" class="chiudi-oroscopo" onclick="document.getElementById('box-oroscopo').style.display='none';">&times;</button>
+            
+            <h2>Oroscopo del giorno: {{ segno }}</h2>
+            <p>{{ oroscopo }}</p>
+        </div>
+    </center>
+    {% endif %}
+
+</body>
+</html>

@@ -1,0 +1,34 @@
+services:
+  django:
+    build:
+      context: .
+      dockerfile: django.dockerfile    
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - ./:/app/
+
+    networks:
+      - app-net
+
+    depends_on:
+      - db
+
+    env_file:
+      - .env
+
+  db:
+    image: postgres:18.1
+    restart: unless-stopped
+    networks:
+      - app-net
+    volumes:
+      - ./postgres_data:/var/lib/postgresql
+    env_file:
+      - .env
+
+networks:
+  app-net:
+    driver: bridge
+      

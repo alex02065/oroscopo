@@ -1,0 +1,20 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <center>
+        <h1 id="titolo">Horoscope Blender</h1>
+        <br>
+        <h3 id="sott">Scopri il tuo oroscopo!</h3>
+        <br>
+        <form action="{% url 'avvia_oroscopo' %}" method="GET">
+        <button type="submint" id="start"><img src="{% static 'img/start.png' %}"></button>
+        </form>
+    
+    </center>
+</body>
+</html>
