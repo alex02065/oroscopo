@@ -1,5 +1,6 @@
 Django
-bs4
+djangorestframework
+beautifulsoup4
 requests
 openai
 psycopg2-binary<2.9
