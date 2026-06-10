@@ -1,0 +1,86 @@
+---
+import Layout from "../layouts/or.astro";
+---
+
+<Layout>
+
+  <!-- bottone esci -->
+  <a href="/">
+    <button type="submit" id="esci">
+      <img src="/img/esci.png" alt="Esci" />
+    </button>
+</a>
+
+  <!-- impostazioni -->
+  <button id="impostazioni">
+    <img src="/img/impostazioni.png" alt="Impostazioni" />
+  </button>
+
+  <center>
+    <h1 id="segno">Seleziona il tuo segno zodiacale</h1>
+
+    <br />
+
+    <!-- FORM oroscopo -->
+    <form action="/recupera-oroscopo" method="POST">
+      <div class="custom-select">
+        <select name="segno">
+          <option value="ariete">Ariete</option>
+          <option value="toro">Toro</option>
+          <option value="gemelli">Gemelli</option>
+          <option value="cancro">Cancro</option>
+          <option value="leone">Leone</option>
+          <option value="vergine">Vergine</option>
+          <option value="bilancia">Bilancia</option>
+          <option value="scorpione">Scorpione</option>
+          <option value="sagittario">Sagittario</option>
+          <option value="capricorno">Capricorno</option>
+          <option value="acquario">Acquario</option>
+          <option value="pesci">Pesci</option>
+        </select>
+      </div>
+
+      <button type="submit" id="serch">
+        <img src="/img/serch.png" alt="Cerca" />
+      </button>
+
+      <!-- provider -->
+      <div id="pannello-impostazioni" class="modal-impostazioni">
+        <div class="modal-content">
+          <button type="button" class="chiudi-impostazioni">&times;</button>
+
+          <h2>Impostazioni Oroscopo</h2>
+          <hr class="divider" />
+
+          <label>Scegli il sito da cui prendere l'oroscopo</label>
+
+          <center>
+            <div class="custom-select">
+              <select name="provider">
+                <option value="internazionale">internazionale</option>
+                <option value="corriere">corriere</option>
+                <option value="sky">sky</option>
+                <option value="oggi">oggi</option>
+                <option value="AI">AI</option>
+              </select>
+            </div>
+          </center>
+        </div>
+      </div>
+    </form>
+
+    <!-- BOX risultato (statico per ora) -->
+    <div id="box-oroscopo" class="box-risultato-oroscopo" style="display:none;">
+      <button
+        type="button"
+        class="chiudi-oroscopo"
+        onclick="document.getElementById('box-oroscopo').style.display='none';"
+      >
+        &times;
+      </button>
+
+      <h2>Oroscopo del giorno</h2>
+      <p>Risultato qui (da backend o API)</p>
+    </div>
+  </center>
+</Layout>

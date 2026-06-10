@@ -1,0 +1,59 @@
+body {
+    background-image:url('../img/bg.png'); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+
+
+#titolo{
+    color:#f0f4f8;
+    font-family: 'Georgia', serif;
+    font-size: 50px;
+    backdrop-filter: blur(1px);
+    display: inline-block;
+    margin-top: 5%;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    border-radius: 16px;
+    margin-bottom:5px;
+}
+
+#sott{
+    color: #f3e8ff;
+    backdrop-filter: blur(1px);
+    display: inline-block;
+    margin-top: auto;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8);
+    border-radius: 8px;
+}
+
+form:has(#start){
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#start{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border: none;
+    background: none;
+}
+
+#start img{
+    object-fit: contain;
+    height: 220px;
+}
+
+#start:hover{
+    filter:brightness(0.5);
+}
+
+#start:active{
+    transform: translate(-50%, -50%) scale(0.90);
+}
