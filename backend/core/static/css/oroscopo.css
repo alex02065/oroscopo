@@ -1,0 +1,133 @@
+body {
+    background-image:url('../img/bg.png'); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+form:has(#esci){
+    position: absolute;
+    display: block;
+    margin-right: auto;
+    background: none;
+    border: none;
+}
+
+#esci{
+    position: absolute;
+    display: block;
+    margin-right: auto;
+    background: none;
+    border: none;
+}
+
+#esci img{
+    object-fit: contain;
+    height: 100px;
+}
+
+#esci:hover{
+    filter: brightness(0.5);
+}
+
+#esci:active{
+    transform: scale(0.90);
+}
+
+#impostazioni{
+    position: relative;
+    display: block;
+    margin-left: auto;
+    background: none;
+    border: none;
+}
+
+#impostazioni img{
+    object-fit: contain;
+    height: 100px;
+}
+
+#impostazioni:hover{
+    filter: brightness(0.5);
+}
+
+#impostazioni:active{
+    transform: scale(0.90);
+}
+
+#serch{
+    position: absolute;
+    display: block;
+    left: 50%;
+    top: 60%;
+    transform: translate(-50%, -50%);
+    border: none;
+    background: none;
+}
+
+#serch img{
+    object-fit: contain;
+    height: 220px;
+}
+
+#serch:hover{
+    filter:brightness(0.5);
+}
+
+#serch:active{
+    transform: translate(-50%, -50%) scale(0.90);
+}
+
+#segno{
+    color:#f0f4f8;
+    font-family: 'Georgia', serif;
+    font-size: 50px;
+    backdrop-filter: blur(1px);
+    display: inline-block;
+    margin-top: auto;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    border-radius: 16px;
+    margin-bottom:50px;
+}
+
+.box-risultato-oroscopo {
+    position: relative;
+    margin-top: 30px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px dashed #ffd700;
+    border-radius: 12px;
+    max-width: 500px;
+    color: #fff;
+    font-family: 'Georgia', serif;
+    line-height: 1.6;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.1);
+}
+
+.box-risultato-oroscopo h2 {
+    color: #ffd700;
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.chiudi-oroscopo {
+    position: absolute;
+    top: 12px;
+    right: 18px;
+    background: none;
+    border: none;
+    color: #ffd700;
+    font-size: 28px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: all 0.2s ease;
+}
+
+.chiudi-oroscopo:hover {
+    color: #ff4500;
+    transform: scale(1.15);
+}
