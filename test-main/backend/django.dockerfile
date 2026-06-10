@@ -14,4 +14,4 @@ COPY ./requirements.txt /app/
 
 RUN pip install -r requirements.txt
 
-CMD ["./fla.sh"]
+CMD ["./backend/fla.sh"]
