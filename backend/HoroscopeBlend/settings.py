@@ -134,4 +134,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4321",
     "http://127.0.0.1:4321",
+    "http://localhost",
+    "http://127.0.0.1",
 ]

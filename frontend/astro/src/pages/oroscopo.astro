@@ -110,7 +110,7 @@ import Layout from "../layouts/or.astro";
 
       try {
         // Sostituisci l'URL con l'indirizzo reale del tuo server Django se diverso
-        const response = await fetch('http://127.0.0.1:8000/recupera_oroscopo/', {
+        const response = await fetch('http://localhost:8000/recupera_oroscopo/', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
